@@ -1,0 +1,28 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="400"
+        xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+        xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+        x:Class="PackwizModpackManager.Views.CreateProjectWindow"
+        Title="CreateProjectWindow">
+  <StackPanel Margin="10">
+    <TextBlock Text="Nombre del Proyecto:" Margin="0,0,0,10"/>
+    <TextBox Name="ProjectNameTextBox" Margin="0,0,0,10"/>
+
+    <TextBlock Text="Autor del Proyecto:" Margin="0,0,0,10"/>
+    <TextBox Name="AuthorTextBox" Margin="0,0,0,10"/>
+
+    <TextBlock Text="Versión del Proyecto:" Margin="0,0,0,10"/>
+    <TextBox Name="VersionTextBox" Margin="0,0,0,10"/>
+
+    <TextBlock Text="Versión de Minecraft:" Margin="0,0,0,10"/>
+    <ComboBox Name="McVersionComboBox" Margin="0,0,0,10" Theme="{StaticResource MaterialOutlineComboBox}" assist:ComboBoxAssist.Label="Minecraft Version"/>
+
+    <TextBlock Text="Mod Loader:" Margin="0,0,0,10"/>
+    <ComboBox Name="ModLoaderComboBox" Margin="0,0,0,10" Theme="{StaticResource MaterialOutlineComboBox}" assist:ComboBoxAssist.Label="Mod Loader"/>
+
+    <Button Content="Crear Proyecto" Click="OnCrearProyectoClick" Margin="0,10,0,10"/>
+  </StackPanel>
+</Window>

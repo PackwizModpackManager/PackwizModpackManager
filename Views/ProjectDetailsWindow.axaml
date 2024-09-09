@@ -1,0 +1,107 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PackwizModpackManager.Models"
+        xmlns:models="clr-namespace:PackwizModpackManager.Models"
+        xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+        xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
+        xmlns:p1="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="550"
+        x:Class="PackwizModpackManager.Views.ProjectDetailsWindow"
+        x:DataType="models:PackToml"
+        Title="ProjectDetailsWindow">
+  <TabControl AutoScrollToSelectedItem="True" Theme="{StaticResource ScrollableTabControl}">
+    <TabItem Header="Añadir Mods">
+      <StackPanel Margin="10">
+        <TextBlock Text="Fuente del Mod:" Margin="0,0,0,10"/>
+        <ComboBox Name="ModSourceComboBox" HorizontalAlignment="Left" Width="200" Margin="0,0,0,10" Theme="{StaticResource MaterialOutlineComboBox}" assist:ComboBoxAssist.Label="Fuente">
+          <ComboBoxItem Content="CurseForge"/>
+          <ComboBoxItem Content="Modrinth"/>
+        </ComboBox>
+        <TextBlock Text="ID del Mod:" Margin="0,10,0,10"/>
+        <TextBox Name="ModIdTextBox" HorizontalAlignment="Left" Width="200" Margin="0,0,0,10"/>
+        <CheckBox Name="SkipConfirmationCheckBox" Content="Omitir confirmación" Margin="0,10,0,10"/>
+        <Button Content="Añadir Mod"  Click="OnAddModClick" Margin="0,0,0,10"/>
+      </StackPanel>
+    </TabItem>
+    <TabItem Header="Actualizar Mods">
+      <StackPanel Margin="10">
+        <Button Content="Actualizar Mod Seleccionado" Click="OnUpdateSelectedModClick" Margin="0,0,0,10"/>
+        <Button Content="Actualizar Todos los Mods" Click="OnUpdateAllModsClick" Margin="0,0,0,10"/>
+        <Separator Margin="10"/>
+        <TextBlock Text="Añadir archivos externos / otros" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+        <Button Content="Refrescar Archivos Modpack" Click="OnRefreshModpackClick" Margin="0,20,0,10"/>
+      </StackPanel>
+    </TabItem>
+    <TabItem Header="Eliminar Mods">
+      <StackPanel Margin="10">
+        <Button Content="Eliminar Mod Seleccionado" Click="OnDeleteSelectedModClick" Margin="0,0,0,10"/>
+      </StackPanel>
+    </TabItem>
+    <TabItem Header="Lista de Mods">
+      <StackPanel Margin="10">
+        <controls:Card Padding="0,4">
+          <ListBox Name="ModsListBox" Height="350" SelectionChanged="OnModSelectionChanged" Margin="10">
+            <ListBox.ItemTemplate>
+              <DataTemplate DataType="{x:Type local:Mod}">
+                <StackPanel Orientation="Horizontal">
+                  <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Width="400" Margin="10"/>
+                  <ComboBox Width="200" SelectedIndex="{Binding SideIndex, Mode=TwoWay}" Theme="{StaticResource MaterialOutlineComboBox}">
+                    <ComboBoxItem Content="client"/>
+                    <ComboBoxItem Content="server"/>
+                    <ComboBoxItem Content="both"/>
+                  </ComboBox>
+                </StackPanel>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+        </controls:Card>
+        <Button Content="Guardar Cambios" Click="OnSaveChangesClick" Margin="0,10,0,10"/>
+        <Button Content="Actualizar Lista de Mods" Click="OnRefreshModsClick" Margin="0,0,0,10"/>
+      </StackPanel>
+    </TabItem>
+    <TabItem Header="Editar ModPack Info">
+      <StackPanel Margin="10">
+        <TextBlock Text="Pack Name" />
+        <TextBox Text="{Binding Name}" />
+
+        <TextBlock Text="Version" />
+        <TextBox Text="{Binding Version}" />
+
+        <TextBlock Text="Author" />
+        <TextBox Text="{Binding Author}" />
+
+        <TextBlock Text="Pack Format" />
+        <TextBox Text="{Binding PackFormat}" IsReadOnly="True" IsEnabled="False"/>
+
+        <TextBlock Text="Forge Version" />
+        <TextBox Name="ForgeVersionTextBox" Text="{Binding ForgeVersion}" />
+
+        <TextBlock Text="Minecraft Version" />
+        <TextBox Name="MinecraftVersionTextBox" Text="{Binding MinecraftVersion}" IsReadOnly="True" IsEnabled="False"/>
+
+        <Button Content="Guardar Cambios" Click="OnSavePackTomlClick" />
+      </StackPanel>
+    </TabItem>
+    <TabItem Header="Publicar Modpack">
+      <StackPanel Margin="10">
+        <TextBlock Text="Copiar a Directorio:" Margin="0,0,0,10" FontSize="20"/>
+        <Button Content="Seleccionar Directorio" Click="OnSelectDirectoryClick" Margin="0,0,0,10"/>
+        <Button Content="Copiar Modpack" Click="OnCopyModpackClick" Margin="0,0,0,10"/>
+        <TextBlock Text="Subir por FTP:" Margin="0,30,0,10" FontSize="20"/>
+        <TextBox Name="FtpServerTextBox" Watermark="Servidor FTP" Margin="0,0,0,10"/>
+        <TextBox Name="FtpUsernameTextBox" Watermark="Usuario FTP" Margin="0,0,0,10"/>
+        <TextBox Name="FtpPasswordBox" UseFloatingWatermark="True" Classes="filled revealPasswordButton" Theme="{StaticResource FilledTextBox}" p1:TextFieldAssist.Label="Contraseña FTP" PasswordChar="*" Margin="0,0,0,10"/>
+        <Button Content="Subir Modpack" Click="OnUploadModpackClick" Margin="0,0,0,10"/>
+        <TextBlock Text="Exportar Modpack:" Margin="0,30,0,10" FontSize="20"/>
+        <ComboBox Name="ExportTypeComboBox" HorizontalAlignment="Left" Width="200" Margin="0,0,0,10" Theme="{StaticResource MaterialOutlineComboBox}" assist:ComboBoxAssist.Label="Fuente">
+          <ComboBoxItem Content="CurseForge" Tag="curseforge"/>
+          <ComboBoxItem Content="Modrinth" Tag="modrinth"/>
+        </ComboBox>
+        <CheckBox Name="OpenFolderCheckBox" Content="Abrir carpeta después de exportar" Margin="0,0,0,10"/>
+        <Button Content="Exportar Modpack" Click="OnExportModpackClick" Margin="0,0,0,10"/>
+      </StackPanel>
+    </TabItem>
+  </TabControl>
+</Window>
