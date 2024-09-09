@@ -16,6 +16,10 @@ namespace PackwizModpackManager.Models
         private string author;
         private string packFormat; // Cambia el tipo de int a string
         private string forgeVersion;
+        public string NeoForgeVersion { get; set; }
+        public string FabricVersion { get; set; }
+        public string QuiltVersion { get; set; }
+
         private string minecraftVersion;
 
         public string IndexFile { get; set; }
@@ -132,6 +136,9 @@ namespace PackwizModpackManager.Models
                 if (table.TryGetValue("versions", out var versions) && versions is TomlTable versionsTable)
                 {
                     packToml.ForgeVersion = versionsTable.TryGetValue("forge", out var forgeVersion) ? forgeVersion.ToString() : "";
+                    packToml.NeoForgeVersion = versionsTable.TryGetValue("neoforge", out var neoForgeVersion) ? neoForgeVersion.ToString() : "";
+                    packToml.FabricVersion = versionsTable.TryGetValue("fabric", out var fabricVersion) ? fabricVersion.ToString() : "";
+                    packToml.QuiltVersion = versionsTable.TryGetValue("quilt", out var quiltVersion) ? quiltVersion.ToString() : "";
                     packToml.MinecraftVersion = versionsTable.TryGetValue("minecraft", out var minecraftVersion) ? minecraftVersion.ToString() : "";
                 }
 
@@ -160,12 +167,35 @@ namespace PackwizModpackManager.Models
             table["index"] = indexTable;
 
             // Añadir sección [versions]
-            var versionsTable = new TomlTable
+            var versionsTable = new TomlTable();
+
+            if (!string.IsNullOrEmpty(ForgeVersion))
             {
-                ["forge"] = ForgeVersion,
-                ["minecraft"] = MinecraftVersion
-            };
+                versionsTable["forge"] = ForgeVersion;
+            }
+
+            if (!string.IsNullOrEmpty(NeoForgeVersion))
+            {
+                versionsTable["neoforge"] = NeoForgeVersion;
+            }
+
+            if (!string.IsNullOrEmpty(FabricVersion))
+            {
+                versionsTable["fabric"] = FabricVersion;
+            }
+
+            if (!string.IsNullOrEmpty(QuiltVersion))
+            {
+                versionsTable["quilt"] = QuiltVersion;
+            }
+
+            if (!string.IsNullOrEmpty(MinecraftVersion))
+            {
+                versionsTable["minecraft"] = MinecraftVersion;
+            }
+
             table["versions"] = versionsTable;
+            
 
             return Toml.FromModel(table);
         }

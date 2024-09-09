@@ -67,8 +67,7 @@ namespace PackwizModpackManager.Views
                 if (PackToml != null)
                 {
                     // Establecer el DataContext del Window a sí mismo para exponer la propiedad PackToml
-                    ForgeVersionTextBox.Text = PackToml.ForgeVersion;
-                    MinecraftVersionTextBox.Text = PackToml.MinecraftVersion;
+                    UpdateModLoaderUI(PackToml);
                     this.DataContext = PackToml;
                 }
             }
@@ -369,6 +368,27 @@ namespace PackwizModpackManager.Views
             }
 
             await ExecutePackwizCommand("refresh");
+        }
+
+        private void UpdateModLoaderUI(PackToml packToml)
+        {
+            // Mostrar/ocultar TextBox en función de si hay versión para ese modloader
+
+            //Forge 
+            ForgeVersionText.IsVisible = string.IsNullOrEmpty(packToml.ForgeVersion) ? IsVisible = false : IsVisible = true;
+            ForgeVersionTextBox.IsVisible = string.IsNullOrEmpty(packToml.ForgeVersion) ? IsVisible = false : IsVisible = true;
+
+            //NeoForge
+            NeoForgeVersionText.IsVisible = string.IsNullOrEmpty(packToml.NeoForgeVersion) ? IsVisible = false : IsVisible = true;
+            NeoForgeVersionTextBox.IsVisible = string.IsNullOrEmpty(packToml.NeoForgeVersion) ? IsVisible = false : IsVisible = true;
+
+            //Fabric
+            FabricVersionText.IsVisible = string.IsNullOrEmpty(packToml.FabricVersion) ? IsVisible = false : IsVisible = true;
+            FabricVersionTextBox.IsVisible = string.IsNullOrEmpty(packToml.FabricVersion) ? IsVisible = false : IsVisible = true;
+
+            //Quilt
+            QuiltVersionText.IsVisible = string.IsNullOrEmpty(packToml.QuiltVersion) ? IsVisible = false : IsVisible = true;
+            QuiltVersionTextBox.IsVisible = string.IsNullOrEmpty(packToml.QuiltVersion) ? IsVisible = false : IsVisible = true;
         }
 
         private async Task ExecutePackwizCommand(string arguments)

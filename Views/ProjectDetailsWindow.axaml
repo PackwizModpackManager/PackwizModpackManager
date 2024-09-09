@@ -19,7 +19,7 @@
           <ComboBoxItem Content="CurseForge"/>
           <ComboBoxItem Content="Modrinth"/>
         </ComboBox>
-        <TextBlock Text="ID del Mod:" Margin="0,10,0,10"/>
+        <TextBlock Text="URL/ID del Mod:" Margin="0,10,0,10"/>
         <TextBox Name="ModIdTextBox" HorizontalAlignment="Left" Width="200" Margin="0,0,0,10"/>
         <CheckBox Name="SkipConfirmationCheckBox" Content="Omitir confirmación" Margin="0,10,0,10"/>
         <Button Content="Añadir Mod"  Click="OnAddModClick" Margin="0,0,0,10"/>
@@ -75,8 +75,17 @@
         <TextBlock Text="Pack Format" />
         <TextBox Text="{Binding PackFormat}" IsReadOnly="True" IsEnabled="False"/>
 
-        <TextBlock Text="Forge Version" />
-        <TextBox Name="ForgeVersionTextBox" Text="{Binding ForgeVersion}" />
+        <TextBlock x:Name="ForgeVersionText" Text="Forge Version" IsVisible="False"/>
+        <TextBox Name="ForgeVersionTextBox" Text="{Binding ForgeVersion}" IsVisible="False"/>
+
+        <TextBlock x:Name="NeoForgeVersionText" Text="NeoForge Version" IsVisible="False"/>
+        <TextBox x:Name="NeoForgeVersionTextBox" Text="{Binding NeoForgeVersion}" IsVisible="False"/>
+
+        <TextBlock x:Name="FabricVersionText" Text="Fabric Version" IsVisible="False"/>
+        <TextBox x:Name="FabricVersionTextBox" Text="{Binding FabricVersion}" IsVisible="False"/>
+        
+        <TextBlock x:Name="QuiltVersionText" Text="Quilt Version" IsVisible="False"/>
+        <TextBox x:Name="QuiltVersionTextBox" Text="{Binding QuiltVersion}" IsVisible="False"/>
 
         <TextBlock Text="Minecraft Version" />
         <TextBox Name="MinecraftVersionTextBox" Text="{Binding MinecraftVersion}" IsReadOnly="True" IsEnabled="False"/>
