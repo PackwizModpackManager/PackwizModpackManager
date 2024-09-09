@@ -135,7 +135,7 @@ public partial class CreateProjectWindow : Window
                 }
                 else
                 {
-                    var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Error al crear el proyecto:\n" + error);
+                    var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Error al crear el proyecto:\n" + output);
                     await messageBox.ShowWindowDialogAsync(this);
                 }
             }
