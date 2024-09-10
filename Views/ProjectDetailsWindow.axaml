@@ -15,29 +15,29 @@
   <TabControl AutoScrollToSelectedItem="True" Theme="{StaticResource ScrollableTabControl}">
     <TabItem Header="{l:Localize TabAddMods}">
       <StackPanel Margin="10">
-        <TextBlock Text="Fuente del Mod:" Margin="0,0,0,10"/>
-        <ComboBox Name="ModSourceComboBox" HorizontalAlignment="Left" Width="200" Margin="0,0,0,10" Theme="{StaticResource MaterialOutlineComboBox}" assist:ComboBoxAssist.Label="Fuente">
+        <TextBlock Text="{l:Localize TabAddMods}" Margin="0,0,0,10"/>
+        <ComboBox Name="ModSourceComboBox" HorizontalAlignment="Left" Width="200" Margin="0,0,0,10" Theme="{StaticResource MaterialOutlineComboBox}" assist:ComboBoxAssist.Label="{l:Localize Source}">
           <ComboBoxItem Content="CurseForge"/>
           <ComboBoxItem Content="Modrinth"/>
         </ComboBox>
-        <TextBlock Text="URL/ID del Mod:" Margin="0,10,0,10"/>
+        <TextBlock Text="{l:Localize DetialsUrlIdText}" Margin="0,10,0,10"/>
         <TextBox Name="ModIdTextBox" HorizontalAlignment="Left" Width="200" Margin="0,0,0,10"/>
-        <CheckBox Name="SkipConfirmationCheckBox" Content="Omitir confirmación" Margin="0,10,0,10"/>
-        <Button Content="Añadir Mod"  Click="OnAddModClick" Margin="0,0,0,10"/>
+        <CheckBox Name="SkipConfirmationCheckBox" Content="{l:Localize DetailsSkipConfirmationCheckBox}" Margin="0,10,0,10"/>
+        <Button Content="{l:Localize DetailsAddModButton}"  Click="OnAddModClick" Margin="0,0,0,10"/>
       </StackPanel>
     </TabItem>
     <TabItem Header="{l:Localize TabUpdateMods}">
       <StackPanel Margin="10">
-        <Button Content="Actualizar Mod Seleccionado" Click="OnUpdateSelectedModClick" Margin="0,0,0,10"/>
-        <Button Content="Actualizar Todos los Mods" Click="OnUpdateAllModsClick" Margin="0,0,0,10"/>
+        <Button Content="{l:Localize DetailsUpdateSelectedMod}" Click="OnUpdateSelectedModClick" Margin="0,0,0,10"/>
+        <Button Content="{l:Localize DetailsUpdateAllMods}" Click="OnUpdateAllModsClick" Margin="0,0,0,10"/>
         <Separator Margin="10"/>
-        <TextBlock Text="Añadir archivos externos / otros" HorizontalAlignment="Center" FontSize="20"></TextBlock>
-        <Button Content="Refrescar Archivos Modpack" Click="OnRefreshModpackClick" Margin="0,20,0,10"/>
+        <TextBlock Text="{l:Localize DetailsAddOtherFilesOrRefresh}" HorizontalAlignment="Center" FontSize="20"></TextBlock>
+        <Button Content="{l:Localize DetailsRefreshModpackFiles}" Click="OnRefreshModpackClick" Margin="0,20,0,10"/>
       </StackPanel>
     </TabItem>
     <TabItem Header="{l:Localize TabDeleteMods}">
       <StackPanel Margin="10">
-        <Button Content="Eliminar Mod Seleccionado" Click="OnDeleteSelectedModClick" Margin="0,0,0,10"/>
+        <Button Content="{l:Localize DetailsDeleteSelectedMod}" Click="OnDeleteSelectedModClick" Margin="0,0,0,10"/>
       </StackPanel>
     </TabItem>
     <TabItem Header="{l:Localize TabListMods}">
@@ -58,40 +58,40 @@
             </ListBox.ItemTemplate>
           </ListBox>
         </controls:Card>
-        <Button Content="Guardar Cambios" Click="OnSaveChangesClick" Margin="0,10,0,10"/>
-        <Button Content="Actualizar Lista de Mods" Click="OnRefreshModsClick" Margin="0,0,0,10"/>
+        <Button Content="{l:Localize Save}" Click="OnSaveChangesClick" Margin="0,10,0,10"/>
+        <Button Content="{l:Localize DetailsUpdateModList}" Click="OnRefreshModsClick" Margin="0,0,0,10"/>
       </StackPanel>
     </TabItem>
     <TabItem Header="{l:Localize TabModpackInfoEditor}">
       <StackPanel Margin="10">
-        <TextBlock Text="Pack Name" />
+        <TextBlock Text="{l:Localize DetailsModpackName}" />
         <TextBox Text="{Binding Name}" />
 
-        <TextBlock Text="Version" />
+        <TextBlock Text="{l:Localize DetailsModpackVersion}" />
         <TextBox Text="{Binding Version}" />
 
-        <TextBlock Text="Author" />
+        <TextBlock Text="{l:Localize DetailsModpackAuthor}" />
         <TextBox Text="{Binding Author}" />
 
-        <TextBlock Text="Pack Format" />
+        <TextBlock Text="{l:Localize DetailsModpackFormatVersion}" />
         <TextBox Text="{Binding PackFormat}" IsReadOnly="True" IsEnabled="False"/>
 
-        <TextBlock x:Name="ForgeVersionText" Text="Forge Version" IsVisible="False"/>
+        <TextBlock x:Name="ForgeVersionText" Text="{l:Localize DetailsForgeVersion}" IsVisible="False"/>
         <TextBox Name="ForgeVersionTextBox" Text="{Binding ForgeVersion}" IsVisible="False"/>
 
-        <TextBlock x:Name="NeoForgeVersionText" Text="NeoForge Version" IsVisible="False"/>
+        <TextBlock x:Name="NeoForgeVersionText" Text="{l:Localize DetailsNeoForgeVersion}" IsVisible="False"/>
         <TextBox x:Name="NeoForgeVersionTextBox" Text="{Binding NeoForgeVersion}" IsVisible="False"/>
 
-        <TextBlock x:Name="FabricVersionText" Text="Fabric Version" IsVisible="False"/>
+        <TextBlock x:Name="FabricVersionText" Text="{l:Localize DetailsFabricVersion}" IsVisible="False"/>
         <TextBox x:Name="FabricVersionTextBox" Text="{Binding FabricVersion}" IsVisible="False"/>
         
-        <TextBlock x:Name="QuiltVersionText" Text="Quilt Version" IsVisible="False"/>
+        <TextBlock x:Name="QuiltVersionText" Text="{l:Localize DetailsQuiltVersion}" IsVisible="False"/>
         <TextBox x:Name="QuiltVersionTextBox" Text="{Binding QuiltVersion}" IsVisible="False"/>
 
-        <TextBlock Text="Minecraft Version" />
+        <TextBlock Text="{l:Localize DetailsMinecraftVersion}" />
         <TextBox Name="MinecraftVersionTextBox" Text="{Binding MinecraftVersion}" IsReadOnly="True" IsEnabled="False"/>
 
-        <Button Content="Guardar Cambios" Click="OnSavePackTomlClick" />
+        <Button Content="{l:Localize Save}" Click="OnSavePackTomlClick" />
       </StackPanel>
     </TabItem>
     <TabItem Header="{l:Localize TabPublishModpack}">
