@@ -32,6 +32,7 @@ namespace PackwizModpackManager.Views
             this.projectPath = projectPath;
             LoadMods();
             LoadPackToml(); // Asegúrate de que esta función se esté llamando
+            this.Focus();
         }
 
         private void LoadMods()

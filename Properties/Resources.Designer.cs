@@ -59,5 +59,14 @@ namespace PackwizModpackManager.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Packwiz Project Manager.
+        /// </summary>
+        internal static string PackwizModpackManagerText {
+            get {
+                return ResourceManager.GetString("PackwizModpackManagerText", resourceCulture);
+            }
+        }
     }
 }

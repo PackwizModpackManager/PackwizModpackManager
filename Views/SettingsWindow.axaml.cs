@@ -9,11 +9,11 @@ using Material.Colors;
 using Material.Styles.Themes;
 using Material.Styles.Themes.Base;
 using Newtonsoft.Json;
-using Semi.Avalonia;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using Avalonia.Media;
+using Jeek.Avalonia.Localization;
 
 namespace PackwizModpackManager.Views
 {
@@ -36,11 +36,32 @@ namespace PackwizModpackManager.Views
                 var config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(ConfigFilePath));
                 PackwizPathTextBox.Text = config.PackwizPath;
                 ProjectsFolderTextBox.Text = config.ProjectsFolder ?? DefaultProjectsFolder;
+                LanguagesComboBox.SelectedItem = config.Language ?? "English";
+                SetLanguageComboBox(config.Language ?? "English");
             }
             else
             {
                 PackwizPathTextBox.Text = DefaultPackwizPath;
                 ProjectsFolderTextBox.Text = DefaultProjectsFolder;
+                LanguagesComboBox.SelectedItem = "English";
+                SetLanguageComboBox("English");
+            }
+        }
+
+        private void SetLanguageComboBox(string language)
+        {
+            switch (language)
+            {
+                case "English":
+                    LanguagesComboBox.SelectedIndex = 0;
+                    break;
+                case "Español":
+                    LanguagesComboBox.SelectedIndex = 1;
+                    break;
+                // Añade más casos según los idiomas soportados
+                default:
+                    LanguagesComboBox.SelectedIndex = 0;
+                    break;
             }
         }
 
@@ -81,20 +102,26 @@ namespace PackwizModpackManager.Views
             var config = new Config
             {
                 PackwizPath = PackwizPathTextBox.Text,
-                ProjectsFolder = ProjectsFolderTextBox.Text
+                ProjectsFolder = ProjectsFolderTextBox.Text,
+                Language = LanguagesComboBox.SelectedItem.ToString()
             };
 
             File.WriteAllText(ConfigFilePath, JsonConvert.SerializeObject(config));
             Close();
         }
 
-        private void OnThemeSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnGuardarIdiomaClick(object sender, RoutedEventArgs e)
         {
-            if (ThemeComboBox.SelectedItem is ComboBoxItem selectedItem)
+            var config = new Config
             {
-                string themeTag = selectedItem.Tag.ToString();
-                ApplyTheme(themeTag);
-            }
+                PackwizPath = PackwizPathTextBox.Text,
+                ProjectsFolder = ProjectsFolderTextBox.Text,
+                Language = (LanguagesComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() // Guardar el idioma seleccionado
+            };
+
+            File.WriteAllText(ConfigFilePath, JsonConvert.SerializeObject(config));
+            ApplyLanguage(config.Language); // Aplicar el idioma seleccionado
+            Close();
         }
 
         private void ApplyTheme(string themeTag)
@@ -105,14 +132,28 @@ namespace PackwizModpackManager.Views
             switch (themeTag)
             {
                 case "Material":
-                    styles.Add(Application.Current.LocateMaterialTheme<MaterialTheme>());
+                    //styles.Add(Application.Current.LocateMaterialTheme<MaterialTheme>());
                     break;
                 case "Semi":
-                    styles.Add(new SemiTheme());
+                    //styles.Add(new SemiTheme());
                     break;
                 case "Fluent":
-                    styles.Add(new Avalonia.Themes.Fluent.FluentTheme());
+                    //styles.Add(new Avalonia.Themes.Fluent.FluentTheme());
                     break;
+            }
+        }
+
+        private void ApplyLanguage(string language)
+        {
+            switch (language)
+            {
+                case "English":
+                    Localizer.Language = "en-US";
+                    break;
+                case "Español":
+                    Localizer.Language = "es-ES";
+                    break;
+                    // Añade más casos según los idiomas soportados
             }
         }
 
@@ -120,6 +161,7 @@ namespace PackwizModpackManager.Views
         {
             public string PackwizPath { get; set; }
             public string ProjectsFolder { get; set; }
+            public string Language { get; set; }
         }
     }
 }

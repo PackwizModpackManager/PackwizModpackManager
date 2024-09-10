@@ -2,33 +2,35 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+        xmlns:l="using:Jeek.Avalonia.Localization"
         mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
         x:Class="PackwizModpackManager.Views.SettingsWindow"
         Title="SettingsWindow">
   <TabControl>
     <TabItem Header="Packwiz">
       <StackPanel Margin="10">
-        <TextBlock Text="Ruta del ejecutable de Packwiz:" Margin="0,0,0,10"/>
+        <TextBlock Text="{l:Localize SettingsPackwizBinary}" Margin="0,0,0,10"/>
         <StackPanel Orientation="Horizontal">
           <TextBox Name="PackwizPathTextBox" Width="300" Margin="0,0,10,0"/>
-          <Button Content="Buscar" Click="OnBuscarClick"/>
+          <Button Content="{l:Localize SettingsPackwizBinaryBrowseButton}" Click="OnBuscarClick"/>
         </StackPanel>
-        <TextBlock Text="Carpeta de proyectos:" Margin="0,10,0,10"/>
+        <TextBlock Text="{l:Localize SettingsPackwizProjectFolder}" Margin="0,10,0,10"/>
         <StackPanel Orientation="Horizontal">
           <TextBox Name="ProjectsFolderTextBox" Width="300" Margin="0,0,10,0"/>
-          <Button Content="Seleccionar Carpeta" Click="OnSeleccionarCarpetaClick"/>
+          <Button Content="{l:Localize SettingsPackwizProjectFolderButton}" Click="OnSeleccionarCarpetaClick"/>
         </StackPanel>
-        <Button Content="Guardar" HorizontalAlignment="Right" Margin="0,10,0,0" Click="OnGuardarClick"/>
+        <Button Content="{l:Localize Save}" HorizontalAlignment="Right" Margin="0,10,0,0" Click="OnGuardarClick"/>
       </StackPanel>
     </TabItem>
-    <TabItem Header="Temas">
+    <TabItem Header="{l:Localize Language}">
       <StackPanel Margin="10">
-        <TextBlock Text="Seleccionar Tema:" Margin="0,0,0,10"/>
-        <ComboBox Name="ThemeComboBox" HorizontalAlignment="Left" Width="200" SelectionChanged="OnThemeSelectionChanged" Margin="0,0,0,10">
-          <ComboBoxItem Content="Material.Avalonia" Tag="Material"/>
-          <ComboBoxItem Content="Semi.Avalonia" Tag="Semi"/>
-          <ComboBoxItem Content="Fluent" Tag="Fluent"/>
+        <TextBlock Text="Seleccionar Idioma:" Margin="0,0,0,10"/>
+        <ComboBox Name="LanguagesComboBox" Theme="{StaticResource MaterialOutlineComboBox}" assist:ComboBoxAssist.Label="{l:Localize Language}" HorizontalAlignment="Left" Width="300" Margin="0,0,10,0">
+          <ComboBoxItem Content="English"/>
+          <ComboBoxItem Content="Español"/>
         </ComboBox>
+        <Button Content="{l:Localize Save}" HorizontalAlignment="Center" Margin="0,10,0,0" Click="OnGuardarIdiomaClick"/>
       </StackPanel>
     </TabItem>
   </TabControl>

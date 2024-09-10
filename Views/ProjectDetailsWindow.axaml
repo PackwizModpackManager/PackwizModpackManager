@@ -7,12 +7,13 @@
         xmlns:assist="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
         xmlns:controls="clr-namespace:Material.Styles.Controls;assembly=Material.Styles"
         xmlns:p1="clr-namespace:Material.Styles.Assists;assembly=Material.Styles"
+        xmlns:l="using:Jeek.Avalonia.Localization"
         mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="550"
         x:Class="PackwizModpackManager.Views.ProjectDetailsWindow"
         x:DataType="models:PackToml"
         Title="ProjectDetailsWindow">
   <TabControl AutoScrollToSelectedItem="True" Theme="{StaticResource ScrollableTabControl}">
-    <TabItem Header="Añadir Mods">
+    <TabItem Header="{l:Localize TabAddMods}">
       <StackPanel Margin="10">
         <TextBlock Text="Fuente del Mod:" Margin="0,0,0,10"/>
         <ComboBox Name="ModSourceComboBox" HorizontalAlignment="Left" Width="200" Margin="0,0,0,10" Theme="{StaticResource MaterialOutlineComboBox}" assist:ComboBoxAssist.Label="Fuente">
@@ -25,7 +26,7 @@
         <Button Content="Añadir Mod"  Click="OnAddModClick" Margin="0,0,0,10"/>
       </StackPanel>
     </TabItem>
-    <TabItem Header="Actualizar Mods">
+    <TabItem Header="{l:Localize TabUpdateMods}">
       <StackPanel Margin="10">
         <Button Content="Actualizar Mod Seleccionado" Click="OnUpdateSelectedModClick" Margin="0,0,0,10"/>
         <Button Content="Actualizar Todos los Mods" Click="OnUpdateAllModsClick" Margin="0,0,0,10"/>
@@ -34,12 +35,12 @@
         <Button Content="Refrescar Archivos Modpack" Click="OnRefreshModpackClick" Margin="0,20,0,10"/>
       </StackPanel>
     </TabItem>
-    <TabItem Header="Eliminar Mods">
+    <TabItem Header="{l:Localize TabDeleteMods}">
       <StackPanel Margin="10">
         <Button Content="Eliminar Mod Seleccionado" Click="OnDeleteSelectedModClick" Margin="0,0,0,10"/>
       </StackPanel>
     </TabItem>
-    <TabItem Header="Lista de Mods">
+    <TabItem Header="{l:Localize TabListMods}">
       <StackPanel Margin="10">
         <controls:Card Padding="0,4">
           <ListBox Name="ModsListBox" Height="350" SelectionChanged="OnModSelectionChanged" Margin="10">
@@ -61,7 +62,7 @@
         <Button Content="Actualizar Lista de Mods" Click="OnRefreshModsClick" Margin="0,0,0,10"/>
       </StackPanel>
     </TabItem>
-    <TabItem Header="Editar ModPack Info">
+    <TabItem Header="{l:Localize TabModpackInfoEditor}">
       <StackPanel Margin="10">
         <TextBlock Text="Pack Name" />
         <TextBox Text="{Binding Name}" />
@@ -93,7 +94,7 @@
         <Button Content="Guardar Cambios" Click="OnSavePackTomlClick" />
       </StackPanel>
     </TabItem>
-    <TabItem Header="Publicar Modpack">
+    <TabItem Header="{l:Localize TabPublishModpack}">
       <StackPanel Margin="10">
         <TextBlock Text="Copiar a Directorio:" Margin="0,0,0,10" FontSize="20"/>
         <Button Content="Seleccionar Directorio" Click="OnSelectDirectoryClick" Margin="0,0,0,10"/>
