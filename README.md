@@ -9,7 +9,6 @@ A never ending place of work to make PackWiz Simple
 
 
 ## ToDo
-· Localization System
 
 · Fix posible bugs that i don't found
   
