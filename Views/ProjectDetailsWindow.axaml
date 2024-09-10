@@ -96,21 +96,21 @@
     </TabItem>
     <TabItem Header="{l:Localize TabPublishModpack}">
       <StackPanel Margin="10">
-        <TextBlock Text="Copiar a Directorio:" Margin="0,0,0,10" FontSize="20"/>
-        <Button Content="Seleccionar Directorio" Click="OnSelectDirectoryClick" Margin="0,0,0,10"/>
-        <Button Content="Copiar Modpack" Click="OnCopyModpackClick" Margin="0,0,0,10"/>
-        <TextBlock Text="Subir por FTP:" Margin="0,30,0,10" FontSize="20"/>
-        <TextBox Name="FtpServerTextBox" Watermark="Servidor FTP" Margin="0,0,0,10"/>
-        <TextBox Name="FtpUsernameTextBox" Watermark="Usuario FTP" Margin="0,0,0,10"/>
-        <TextBox Name="FtpPasswordBox" UseFloatingWatermark="True" Classes="filled revealPasswordButton" Theme="{StaticResource FilledTextBox}" p1:TextFieldAssist.Label="Contraseña FTP" PasswordChar="*" Margin="0,0,0,10"/>
-        <Button Content="Subir Modpack" Click="OnUploadModpackClick" Margin="0,0,0,10"/>
-        <TextBlock Text="Exportar Modpack:" Margin="0,30,0,10" FontSize="20"/>
-        <ComboBox Name="ExportTypeComboBox" HorizontalAlignment="Left" Width="200" Margin="0,0,0,10" Theme="{StaticResource MaterialOutlineComboBox}" assist:ComboBoxAssist.Label="Fuente">
+        <TextBlock Text="{l:Localize DetailsCopyToFolder}" Margin="0,0,0,10" FontSize="20"/>
+        <Button Content="{l:Localize DetailsCopyToFolderSelectFolder}" Click="OnSelectDirectoryClick" Margin="0,0,0,10"/>
+        <Button Content="{l:Localize DetaislCopyToFolderCopyButton}" Click="OnCopyModpackClick" Margin="0,0,0,10"/>
+        <TextBlock Text="{l:Localize DetailsUploadByFtpText}" Margin="0,30,0,10" FontSize="20"/>
+        <TextBox Name="FtpServerTextBox" Watermark="{l:Localize DetailsUploadFtpServer}" Margin="0,0,0,10"/>
+        <TextBox Name="FtpUsernameTextBox" Watermark="{l:Localize DetailsUploadFtpUser}" Margin="0,0,0,10"/>
+        <TextBox Name="FtpPasswordBox" UseFloatingWatermark="True" Classes="filled revealPasswordButton" Theme="{StaticResource FilledTextBox}" p1:TextFieldAssist.Label="{l:Localize DetailsUploadFtpPassword}" PasswordChar="*" Margin="0,0,0,10"/>
+        <Button Content="{l:Localize DetailsUploadFtpModpack}" Click="OnUploadModpackClick" Margin="0,0,0,10"/>
+        <TextBlock Text="{l:Localize DetailsModpackExport}" Margin="0,30,0,10" FontSize="20"/>
+        <ComboBox Name="ExportTypeComboBox" HorizontalAlignment="Left" Width="200" Margin="0,0,0,10" Theme="{StaticResource MaterialOutlineComboBox}" assist:ComboBoxAssist.Label="{l:Localize Source}">
           <ComboBoxItem Content="CurseForge" Tag="curseforge"/>
           <ComboBoxItem Content="Modrinth" Tag="modrinth"/>
         </ComboBox>
         <CheckBox Name="OpenFolderCheckBox" Content="Abrir carpeta después de exportar" Margin="0,0,0,10"/>
-        <Button Content="Exportar Modpack" Click="OnExportModpackClick" Margin="0,0,0,10"/>
+        <Button Content="{l:Localize DetailsModpackExport}" Click="OnExportModpackClick" Margin="0,0,0,10"/>
       </StackPanel>
     </TabItem>
   </TabControl>

@@ -42,5 +42,15 @@
   "DetailsForgeVersion": "Versión de Forge",
   "DetailsNeoForgeVersion": "Versión de NeoForge",
   "DetailsFabricVersion": "Versión de Fabric",
-  "DetailsQuiltVersion": "Versión de Quilt"
+  "DetailsQuiltVersion": "Versión de Quilt",
+  "DetailsCopyToFolder": "Copiar a Carpeta",
+  "DetailsCopyToFolderSelectFolder": "Seleccionar Carpeta",
+  "DetaislCopyToFolderCopyButton": "Copiar Modpack",
+  "DetailsUploadByFtpText": "Subir por FTP",
+  "DetailsUploadFtpServer": "Servidor FTP",
+  "DetailsUploadFtpUser": "Usuario FTP",
+  "DetailsUploadFtpPassword": "Contraseña FTP",
+  "DetailsUploadFtpModpack": "Subir Modpack",
+  "DetailsModpackExport": "Exportar Modpack",
+  "DetailsOpenFolderModpackExport": "Abrir Carpeta Después de Exportar Modpack"
 }
