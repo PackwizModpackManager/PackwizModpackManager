@@ -11,6 +11,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using Jeek.Avalonia.Localization;
 
 namespace PackwizModpackManager.Views;
 
@@ -50,7 +51,7 @@ public partial class CreateProjectWindow : Window
             }
             catch (Exception ex)
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Error al cargar las versiones de Minecraft:\n" + ex.Message);
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), "Error al cargar las versiones de Minecraft:\n" + ex.Message);
                 await messageBox.ShowWindowDialogAsync(this);
             }
         }
@@ -72,7 +73,7 @@ public partial class CreateProjectWindow : Window
 
         if (string.IsNullOrEmpty(projectName) || string.IsNullOrEmpty(author) || string.IsNullOrEmpty(version) || string.IsNullOrEmpty(mcVersion) || string.IsNullOrEmpty(modLoader))
         {
-            var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Por favor, complete todos los campos.");
+            var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), "Por favor, complete todos los campos.");
             await messageBox.ShowWindowDialogAsync(this);
             return;
         }
@@ -90,7 +91,7 @@ public partial class CreateProjectWindow : Window
         string packwizPath = GetPackwizPath();
         if (string.IsNullOrEmpty(packwizPath))
         {
-            var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "La ruta del ejecutable de Packwiz no está configurada.");
+            var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), "La ruta del ejecutable de Packwiz no está configurada.");
             await messageBox.ShowWindowDialogAsync(this);
             return;
         }
@@ -134,19 +135,19 @@ public partial class CreateProjectWindow : Window
                 // Mostrar la salida o el error al usuario
                 if (process.ExitCode == 0)
                 {
-                    var messageBox = MessageBoxManager.GetMessageBoxStandard("Éxito", "Proyecto creado exitosamente:\n" + output);
+                    var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), "Proyecto creado exitosamente:\n" + output);
                     await messageBox.ShowWindowDialogAsync(this);
                 }
                 else
                 {
-                    var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Error al crear el proyecto:\n" + output);
+                    var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), "Error al crear el proyecto:\n" + output);
                     await messageBox.ShowWindowDialogAsync(this);
                 }
             }
         }
         catch (Exception ex)
         {
-            var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Ocurrió un error:\n" + ex.Message);
+            var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), "Ocurrió un error:\n" + ex.Message);
             await Clipboard.SetTextAsync(ex.Message);
             await messageBox.ShowWindowDialogAsync(this);
         }

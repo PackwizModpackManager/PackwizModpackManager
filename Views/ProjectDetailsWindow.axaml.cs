@@ -1,5 +1,8 @@
+using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
+using Jeek.Avalonia.Localization;
 using MsBox.Avalonia;
 using Newtonsoft.Json;
 using PackwizModpackManager.Models;
@@ -24,15 +27,17 @@ namespace PackwizModpackManager.Views
         public ProjectDetailsWindow()
         {
             InitializeComponent();
-            this.Focus();
         }
 
         public ProjectDetailsWindow(string projectPath) : this()
         {
+            InitializeComponent();
+            //Ensure to load before any mod the project folder to get the mods
             this.projectPath = projectPath;
+
+            //Update GUI here with mods and pack.toml
             LoadMods();
             LoadPackToml(); // Asegúrate de que esta función se esté llamando
-            this.Focus();
         }
 
         private void LoadMods()
@@ -74,8 +79,23 @@ namespace PackwizModpackManager.Views
             }
             else
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "El archivo pack.toml no existe.");
-                await messageBox.ShowWindowDialogAsync(this);
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("DetailsPackNotExist"));
+
+                // Obtener la ventana principal de la aplicación
+                var mainWindow = (Application.Current.ApplicationLifetime as IClassicDesktopStyleApplicationLifetime)?.MainWindow;
+
+                // Usar 'this' si está visible; de lo contrario, usar la ventana principal
+                var ownerWindow = this.IsVisible ? this : mainWindow;
+
+                if (ownerWindow != null)
+                {
+                    await messageBox.ShowWindowDialogAsync(ownerWindow);
+                }
+                else
+                {
+                    // Si no hay una ventana propietaria disponible, muestra el mensaje sin propietario
+                    await messageBox.ShowAsync();
+                }
             }
         }
 
@@ -87,7 +107,7 @@ namespace PackwizModpackManager.Views
 
             if (string.IsNullOrEmpty(modSource) || string.IsNullOrEmpty(modId))
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Por favor, complete todos los campos.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("DetailsAddModCompleteFields"));
                 await messageBox.ShowWindowDialogAsync(this);
                 return;
             }

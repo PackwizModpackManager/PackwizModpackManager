@@ -14,6 +14,9 @@
     "Save": "Save",
     "Open": "Open",
     "Source": "Source",
+    "Success": "Success",
+    "Warning": "Warning",
+    "Error": "Error",
     "SettingsPackwizBinary": "Packwiz Binary Location:",
     "SettingsPackwizBinaryBrowseButton": "Browse",
     "SettingsPackwizProjectFolder": "Project Folder:",
@@ -52,5 +55,7 @@
     "DetailsUploadFtpPassword": "FTP Password",
     "DetailsUploadFtpModpack": "Upload Modpack",
     "DetailsModpackExport": "Export Modpack",
-    "DetailsOpenFolderModpackExport": "Open Folder After Modpack Export"
+    "DetailsOpenFolderModpackExport": "Open Folder After Modpack Export",
+    "DetailsAddModCompleteFields": "Please complete all the fields.",
+    "DetailsPackNotExist": "The file pack.toml does not exist."
 }
