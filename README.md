@@ -13,6 +13,7 @@ Before starting, ensure you have the following requirements installed:
 - **.NET SDK 8.0**: You can download it from the [official .NET site](https://dotnet.microsoft.com/download/dotnet/8.0).
 - **Visual Studio 2022** or any other IDE compatible with .NET 8.0 (optional).
 - **Git**: If you don't have Git installed, you can get it [here](https://git-scm.com/).
+- **Packwiz**: A package manager required for this project. You can find more information and install it from [Packwiz](https://packwiz.infra.link/).
 
 ## Cloning the Project
 
