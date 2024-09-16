@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
+using Avalonia.Threading;
 using MsBox.Avalonia;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -67,6 +68,13 @@ namespace PackwizModpackManager.Views
                 // Abrir la ventana de detalles del proyecto
                 var projectDetailsWindow = new ProjectDetailsWindow(projectPath);
                 projectDetailsWindow.Show();
+
+                // Put focus on the new created window
+                Dispatcher.UIThread.Post(() =>
+                {
+                    projectDetailsWindow.Activate();
+                }, DispatcherPriority.Background);
+
                 this.Close();
             }
             else
