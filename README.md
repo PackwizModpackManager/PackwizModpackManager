@@ -20,10 +20,9 @@ Before starting, ensure you have the following requirements installed:
 To clone the repository to your local machine, run the following command in your terminal:
 
 ```
-git clone https://github.com/user/project.git
+git clone https://github.com/PackwizModpackManager/PackwizModpackManager.git
 ```
 
-Replace `https://github.com/user/project.git` with the correct URL of your repository.
 
 ## Building the Project
 
