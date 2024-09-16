@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Jeek.Avalonia.Localization;
+using Avalonia.Threading;
 
 namespace PackwizModpackManager.Views;
 
@@ -135,12 +136,24 @@ public partial class CreateProjectWindow : Window
                 // Mostrar la salida o el error al usuario
                 if (process.ExitCode == 0)
                 {
-                    var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), "Proyecto creado exitosamente:\n" + output);
+                    var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), Localizer.Get("CreateProjectSuccess") + "\n" + output);
                     await messageBox.ShowWindowDialogAsync(this);
+
+                    // Open the project manager window
+                    var projectDetailsWindow = new ProjectDetailsWindow(projectPath);
+                    projectDetailsWindow.Show();
+
+                    // Put focus on the new created window
+                    Dispatcher.UIThread.Post(() =>
+                    {
+                        projectDetailsWindow.Activate();
+                    }, DispatcherPriority.Background);
+
+                    this.Close();
                 }
                 else
                 {
-                    var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), "Error al crear el proyecto:\n" + output);
+                    var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("CreateProjectError") + "\n" + output);
                     await messageBox.ShowWindowDialogAsync(this);
                 }
             }
