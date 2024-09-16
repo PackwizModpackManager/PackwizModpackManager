@@ -18,9 +18,13 @@ public partial class CreateProjectWindow : Window
 {
     private const string ConfigFilePath = "config.json";
     private const string DefaultPackwizPath = "packwiz.exe";
+    private const string DefaultProjectsFolder = "Proyectos";
+    private string projectsFolder;
+
     public CreateProjectWindow()
     {
         InitializeComponent();
+        LoadSettings();
         InitializeComboBoxes();
     }
 
@@ -77,7 +81,7 @@ public partial class CreateProjectWindow : Window
         // Sanitize project name to avoid problematic characters
         projectName = SanitizeProjectName(projectName);
 
-        string projectPath = Path.Combine("Proyectos", projectName);
+        string projectPath = Path.Combine(projectsFolder, projectName);
 
         // Crear la carpeta del proyecto
         Directory.CreateDirectory(projectPath);
@@ -160,9 +164,24 @@ public partial class CreateProjectWindow : Window
         return DefaultPackwizPath;
     }
 
+    private void LoadSettings()
+    {
+        if (File.Exists(ConfigFilePath))
+        {
+            var config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(ConfigFilePath));
+            projectsFolder = config.ProjectsFolder ?? DefaultProjectsFolder;
+        }
+        else
+        {
+            projectsFolder = DefaultProjectsFolder;
+        }
+    }
+
     private class Config
     {
         public string PackwizPath { get; set; }
+        public string ProjectsFolder { get; set; }
+        public string Language { get; set; }
     }
 
     private string SanitizeProjectName(string projectName)
