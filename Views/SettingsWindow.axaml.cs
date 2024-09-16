@@ -58,7 +58,7 @@ namespace PackwizModpackManager.Views
                 case "Español":
                     LanguagesComboBox.SelectedIndex = 1;
                     break;
-                // Añade más casos según los idiomas soportados
+                // Add more cases by supported languages
                 default:
                     LanguagesComboBox.SelectedIndex = 0;
                     break;
@@ -67,33 +67,54 @@ namespace PackwizModpackManager.Views
 
         private async void OnBuscarClick(object sender, RoutedEventArgs e)
         {
-            var result = await new OpenFileDialog()
-            {
-                Title = "Seleccionar ejecutable de Packwiz",
-                Filters = new List<FileDialogFilter>
-                {
-                    new FileDialogFilter { Name = "Ejecutables", Extensions = new List<string> { "exe", "bin", "sh" } },
-                    new FileDialogFilter { Name = "Todos los archivos", Extensions = new List<string> { "*" } }
-                }
-            }.ShowAsync(this);
 
-            if (result != null && result.Length > 0)
+            var options = new FilePickerOpenOptions
             {
-                PackwizPathTextBox.Text = result[0];
+                Title = Localizer.Get("SettingPackwizBinarySelectText"),
+                AllowMultiple = false,
+                FileTypeFilter = new List<FilePickerFileType>
+                {
+                    new FilePickerFileType(Localizer.Get("Executables"))
+                    {
+                        Patterns = new[] { "*.exe", "*.bin", "*.sh" }
+                    },
+                    new FilePickerFileType(Localizer.Get("AllFiles"))
+                    {
+                        Patterns = new[] { "*" }
+                    }
+                }
+            };
+
+            // Show file selector
+            var result = await this.StorageProvider.OpenFilePickerAsync(options);
+
+            if (result != null && result.Count > 0)
+            {
+                var file = result[0];
+
+                // Access to file path
+                PackwizPathTextBox.Text = file.Path.LocalPath;
             }
         }
 
         private async void OnSeleccionarCarpetaClick(object sender, RoutedEventArgs e)
         {
-            var dialog = new OpenFolderDialog
+
+            var options = new FolderPickerOpenOptions
             {
-                Title = "Seleccionar carpeta de proyectos"
+                Title = Localizer.Get("SettingsPackwizProjectFolderSelectText"),
+                AllowMultiple = false
             };
 
-            var result = await dialog.ShowAsync(this);
-            if (!string.IsNullOrEmpty(result))
+            // Show folder selector
+            var result = await this.StorageProvider.OpenFolderPickerAsync(options);
+
+            if (result != null && result.Count > 0)
             {
-                ProjectsFolderTextBox.Text = result;
+                var folder = result[0];
+
+                // Access to folder path
+                ProjectsFolderTextBox.Text = folder.Path.LocalPath;
             }
         }
 
