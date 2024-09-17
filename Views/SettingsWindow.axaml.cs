@@ -14,6 +14,8 @@ using System.Collections.Generic;
 using System.IO;
 using Avalonia.Media;
 using Jeek.Avalonia.Localization;
+using Avalonia.Data;
+using PackwizModpackManager.Themes;
 
 namespace PackwizModpackManager.Views
 {
@@ -22,10 +24,12 @@ namespace PackwizModpackManager.Views
         private const string ConfigFilePath = "config.json";
         private const string DefaultPackwizPath = "packwiz.exe";
         private const string DefaultProjectsFolder = "Proyectos";
+        private List<ThemeInfo> themes = new List<ThemeInfo>();
 
         public SettingsWindow()
         {
             InitializeComponent();
+            LoadThemeComboBox();
             LoadSettings();
         }
 
@@ -38,6 +42,7 @@ namespace PackwizModpackManager.Views
                 ProjectsFolderTextBox.Text = config.ProjectsFolder ?? DefaultProjectsFolder;
                 LanguagesComboBox.SelectedItem = config.Language ?? "English";
                 SetLanguageComboBox(config.Language ?? "English");
+                SetThemeComboBox(config.SelectedTheme ?? "Dark Blue");
             }
             else
             {
@@ -46,6 +51,21 @@ namespace PackwizModpackManager.Views
                 LanguagesComboBox.SelectedItem = "English";
                 SetLanguageComboBox("English");
             }
+        }
+
+        private void LoadThemeComboBox()
+        {
+
+            themes.Add(new ThemeInfo { Name = "Dark Blue", BaseTheme = BaseThemeMode.Dark, PrimaryColor = PrimaryColor.Blue, SecondaryColor = SecondaryColor.Pink });
+            themes.Add(new ThemeInfo { Name = "Dark Green", BaseTheme = BaseThemeMode.Dark, PrimaryColor = PrimaryColor.Green, SecondaryColor = SecondaryColor.Pink });
+            themes.Add(new ThemeInfo { Name = "Dark Red", BaseTheme = BaseThemeMode.Dark, PrimaryColor = PrimaryColor.Red, SecondaryColor = SecondaryColor.Pink });
+            themes.Add(new ThemeInfo { Name = "Light Blue", BaseTheme = BaseThemeMode.Light, PrimaryColor = PrimaryColor.Blue, SecondaryColor = SecondaryColor.Cyan });
+            themes.Add(new ThemeInfo { Name = "Light Green", BaseTheme = BaseThemeMode.Light, PrimaryColor = PrimaryColor.Green, SecondaryColor = SecondaryColor.Cyan });
+            themes.Add(new ThemeInfo { Name = "Light Red", BaseTheme = BaseThemeMode.Light, PrimaryColor = PrimaryColor.Red, SecondaryColor = SecondaryColor.Cyan });
+
+            ThemeSelectorCombobox.Items.Clear();
+            ThemeSelectorCombobox.ItemsSource = themes;
+            ThemeSelectorCombobox.DisplayMemberBinding = new Binding("Name");
         }
 
         private void SetLanguageComboBox(string language)
@@ -63,6 +83,11 @@ namespace PackwizModpackManager.Views
                     LanguagesComboBox.SelectedIndex = 0;
                     break;
             }
+        }
+
+        private void SetThemeComboBox(string theme)
+        {
+            ThemeSelectorCombobox.SelectedIndex = themes.FindIndex(t => t.Name == theme);
         }
 
         private async void OnBuscarClick(object sender, RoutedEventArgs e)
@@ -147,30 +172,41 @@ namespace PackwizModpackManager.Views
 
         private void OnGuardarTemaClick(object sender, RoutedEventArgs e)
         {
+
+            var config = new Config
+            {
+                PackwizPath = PackwizPathTextBox.Text,
+                ProjectsFolder = ProjectsFolderTextBox.Text,
+                Language = (LanguagesComboBox.SelectedItem as ComboBoxItem)?.Content.ToString(), // Guardar el idioma seleccionado
+                SelectedTheme = (ThemeSelectorCombobox.SelectedItem as ThemeInfo)?.Name // Guardar el tema seleccionado
+            };
+
+            File.WriteAllText(ConfigFilePath, JsonConvert.SerializeObject(config));
             var app = Application.Current as App;
 
             if (app != null)
             {
-                app.SetTheme(BaseThemeMode.Light, PrimaryColor.Red, SecondaryColor.Green);
+                if (ThemeSelectorCombobox.SelectedItem is ThemeInfo selectedTheme)
+                {
+                    ApplyTheme(selectedTheme);
+                }
             }
         }
 
-        private void ApplyTheme(string themeTag)
+        private void ThemeSelectorCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            Styles styles = Application.Current.Styles;
-            styles.Clear();
-
-            switch (themeTag)
+            if (ThemeSelectorCombobox.SelectedItem is ThemeInfo selectedTheme)
             {
-                case "Material":
-                    //styles.Add(Application.Current.LocateMaterialTheme<MaterialTheme>());
-                    break;
-                case "Semi":
-                    //styles.Add(new SemiTheme());
-                    break;
-                case "Fluent":
-                    //styles.Add(new Avalonia.Themes.Fluent.FluentTheme());
-                    break;
+                ApplyTheme(selectedTheme);
+            }
+        }
+
+        private void ApplyTheme(ThemeInfo theme)
+        {
+            var app = Application.Current as App;
+            if (app != null)
+            {
+                app.SetTheme(theme.BaseTheme, theme.PrimaryColor, theme.SecondaryColor);
             }
         }
 
@@ -193,6 +229,7 @@ namespace PackwizModpackManager.Views
             public string PackwizPath { get; set; }
             public string ProjectsFolder { get; set; }
             public string Language { get; set; }
+            public string SelectedTheme { get; set; }
         }
     }
 }
