@@ -145,6 +145,16 @@ namespace PackwizModpackManager.Views
             Close();
         }
 
+        private void OnGuardarTemaClick(object sender, RoutedEventArgs e)
+        {
+            var app = Application.Current as App;
+
+            if (app != null)
+            {
+                app.SetTheme(BaseThemeMode.Light, PrimaryColor.Red, SecondaryColor.Green);
+            }
+        }
+
         private void ApplyTheme(string themeTag)
         {
             Styles styles = Application.Current.Styles;

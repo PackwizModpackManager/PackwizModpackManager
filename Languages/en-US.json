@@ -22,6 +22,7 @@
   "Info": "Info",
   "Executables": "Exectuables",
   "AllFiles": "All Files",
+  "Themes":  "Themes",
   "SettingsPackwizBinary": "Packwiz Binary Location:",
   "SettingsPackwizBinaryBrowseButton": "Browse",
   "SettingsPackwizProjectFolder": "Project Folder:",

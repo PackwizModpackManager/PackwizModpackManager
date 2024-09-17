@@ -22,6 +22,7 @@
   "Info": "Info",
   "Executables": "Ejectuables",
   "AllFiles": "Todos los Archivos",
+  "Themes":  "Temas",
   "SettingsPackwizBinary": "Ruta del ejecutable de Packwiz:",
   "SettingsPackwizBinaryBrowseButton": "Buscar",
   "SettingsPackwizProjectFolder": "Carpeta de proyectos:",
