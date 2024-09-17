@@ -33,5 +33,13 @@
         <Button Content="{l:Localize Save}" HorizontalAlignment="Center" Margin="0,10,0,0" Click="OnGuardarIdiomaClick"/>
       </StackPanel>
     </TabItem>
+    <TabItem Header="{l:Localize Themes}">
+      <StackPanel Margin="10">
+        <TextBlock Text="{l:Localize ThemeSelect}"></TextBlock>
+        <ComboBox x:Name="ThemeSelectorCombobox" Theme="{StaticResource MaterialOutlineComboBox}" HorizontalAlignment="Left" Width="300" Margin="0,0,10,0" SelectionChanged="ThemeSelectorCombobox_SelectionChanged">
+        </ComboBox>
+        <Button Content="{l:Localize Save}" HorizontalAlignment="Center" Margin="0,10,0,0" Click="OnGuardarTemaClick"/>
+      </StackPanel>
+    </TabItem>
   </TabControl>
 </Window>
