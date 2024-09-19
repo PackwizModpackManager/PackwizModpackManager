@@ -186,7 +186,7 @@ namespace PackwizModpackManager.Views
         private async void OnUpdateAllModsClick(object sender, RoutedEventArgs e)
         {
             // Construir los argumentos del comando para actualizar todos los mods
-            string arguments = "update --all";
+            string arguments = "update --all -y";
 
             // Ejecutar el comando de Packwiz para actualizar todos los mods
             await ExecutePackwizCommand(arguments);
