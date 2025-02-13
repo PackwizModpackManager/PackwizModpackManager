@@ -161,7 +161,7 @@ namespace PackwizModpackManager.Views
             }
             else
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), "Por favor, seleccione un mod.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("SelectMod"), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 await messageBox.ShowWindowDialogAsync(this);
                 return;
             }
@@ -180,7 +180,7 @@ namespace PackwizModpackManager.Views
             // Ejecutar el comando de Packwiz para refrescar los hashes
             await ExecutePackwizCommand("refresh");
 
-            var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), "Modpack refrescado exitosamente.");
+            var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), Localizer.Get("ModpackRefreshed"), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Success);
             await messageBox.ShowWindowDialogAsync(this);
         }
 
@@ -198,7 +198,7 @@ namespace PackwizModpackManager.Views
             var selectedMod = ModsListBox.SelectedItem as Mod;
             if (selectedMod == null)
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), "Por favor, seleccione un mod.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("SelectMod"), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 await messageBox.ShowWindowDialogAsync(this);
                 return;
             }
@@ -237,7 +237,7 @@ namespace PackwizModpackManager.Views
             // Ejecutar el comando de Packwiz para refrescar los hashes
             await ExecutePackwizCommand("refresh");
 
-            var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), Localizer.Get("ChangesSaved"));
+            var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), Localizer.Get("ChangesSaved"), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Success);
             await messageBox.ShowWindowDialogAsync(this);
         }
 
@@ -266,7 +266,7 @@ namespace PackwizModpackManager.Views
         {
             if (string.IsNullOrEmpty(selectedDirectory))
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Warning"), "Por favor, selecciona un directorio.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Warning"), Localizer.Get("SelectFolder"), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Warning);
                 await messageBox.ShowWindowDialogAsync(this);
                 return;
             }
@@ -276,13 +276,13 @@ namespace PackwizModpackManager.Views
                 await Task.Run(() => DirectoryCopy(projectPath, selectedDirectory));
 
                 // Mostrar mensaje de éxito
-                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), "Modpack copiado exitosamente.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), Localizer.Get("ModpackSuccesfullyCopied"), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Success);
                 await messageBox.ShowWindowDialogAsync(this);
             }
             else
             {
                 // Mostrar mensaje de éxito
-                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), "El directorio de mods no existe.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("ModFolderNotExist"), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 await messageBox.ShowWindowDialogAsync(this);
             }
         }
@@ -348,7 +348,7 @@ namespace PackwizModpackManager.Views
             }
             else
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("FTPModFolderNotExist"));
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("ModFolderNotExist"));
                 await messageBox.ShowWindowDialogAsync(this);
             }
         }

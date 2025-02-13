@@ -73,7 +73,11 @@
     "SelectModpackExportType": "Please, Select an export type for the modpack.",
     "CompleteAllFieldsFTP": "Please Complete all fields from FTP.",
     "FTPUploadCorrectly": "Modpack Uploaded Correctly.",
-    "FTPModFolderNotExist": "Mod Folder Does Not Exist.",
+    "ModFolderNotExist": "Mod Folder Does Not Exist.",
     "SelectProject": "Please, Select a Project",
-    "ProjectNotFound": "Projects not found."
+    "ProjectNotFound": "Projects not found.",
+    "SelectFolder": "Please, Select a Folder.",
+    "ModpackSuccesfullyCopied": "Modpack has been successfully copied.",
+    "SelectMod": "Please, select a mod.",
+    "ModpackRefreshed": "Modpack refreshed successfully."
 }
