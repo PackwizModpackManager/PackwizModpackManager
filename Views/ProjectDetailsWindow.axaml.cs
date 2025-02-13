@@ -4,6 +4,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Interactivity;
 using Jeek.Avalonia.Localization;
 using MsBox.Avalonia;
+using MsBox.Avalonia.Models;
 using Newtonsoft.Json;
 using PackwizModpackManager.Models;
 using System;
@@ -442,19 +443,37 @@ namespace PackwizModpackManager.Views
                     // Mostrar la salida o el error al usuario
                     if (process.ExitCode == 0)
                     {
-                        var messageBox = MessageBoxManager.GetMessageBoxStandard("Éxito", "Operación completada exitosamente:\n" + output);
+                        var messageBox = MessageBoxManager
+                        .GetMessageBoxCustom(
+                            new MsBox.Avalonia.Dto.MessageBoxCustomParams
+                            {
+                                ContentTitle = "Éxito",
+                                ContentMessage = "Operación completada exitosamente:\n" + output,
+                                ButtonDefinitions = new List<ButtonDefinition>
+                                {
+                                    new ButtonDefinition { Name = "Ok", }
+                                },
+                                Icon = MsBox.Avalonia.Enums.Icon.Success,
+                                WindowStartupLocation = WindowStartupLocation.CenterOwner,
+                                SizeToContent = SizeToContent.WidthAndHeight,
+                                MinHeight = 200,
+                                MinWidth = 400,
+                                MaxHeight = 700,  // Limita el tamaño del diálogo
+                                MaxWidth = 800
+                            });
+
                         await messageBox.ShowWindowDialogAsync(this);
                     }
                     else
                     {
-                        var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Error en la operación:\n" + error);
+                        var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Error en la operación:\n" + error, MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Warning);
                         await messageBox.ShowWindowDialogAsync(this);
                     }
                 }
             }
             catch (Exception ex)
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Ocurrió un error:\n" + ex.Message);
+                var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Ocurrió un error:\n" + ex.Message, MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 await Clipboard.SetTextAsync(ex.Message);
                 await messageBox.ShowWindowDialogAsync(this);
             }
