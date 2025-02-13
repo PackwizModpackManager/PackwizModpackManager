@@ -3,6 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
+using Jeek.Avalonia.Localization;
 using MsBox.Avalonia;
 using Newtonsoft.Json;
 using System.Collections.Generic;
@@ -53,7 +54,7 @@ namespace PackwizModpackManager.Views
             else
             {
                 ProjectListBox.Items.Clear();
-                ProjectListBox.Items.Add("No se encontraron proyectos.");   
+                ProjectListBox.Items.Add(Localizer.Get("ProjectNotFound"));   
             }
         }
 
@@ -79,7 +80,7 @@ namespace PackwizModpackManager.Views
             }
             else
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Por favor, seleccione un proyecto.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("SelectProject"), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Warning);
                 await messageBox.ShowWindowDialogAsync(this);
             }
         }
