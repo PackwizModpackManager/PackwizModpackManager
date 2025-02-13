@@ -154,14 +154,14 @@ namespace PackwizModpackManager.Views
                 }
                 else
                 {
-                    var messageBox = MessageBoxManager.GetMessageBoxStandard("Error",$"El archivo {modFileName}.pw.toml no existe.");
+                    var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"),$"El archivo {modFileName}.pw.toml no existe.");
                     await messageBox.ShowWindowDialogAsync(this);
                     return;
                 }
             }
             else
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Por favor, seleccione un mod.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), "Por favor, seleccione un mod.");
                 await messageBox.ShowWindowDialogAsync(this);
                 return;
             }
@@ -180,7 +180,7 @@ namespace PackwizModpackManager.Views
             // Ejecutar el comando de Packwiz para refrescar los hashes
             await ExecutePackwizCommand("refresh");
 
-            var messageBox = MessageBoxManager.GetMessageBoxStandard("Éxito", "Modpack refrescado exitosamente.");
+            var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), "Modpack refrescado exitosamente.");
             await messageBox.ShowWindowDialogAsync(this);
         }
 
@@ -198,7 +198,7 @@ namespace PackwizModpackManager.Views
             var selectedMod = ModsListBox.SelectedItem as Mod;
             if (selectedMod == null)
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Por favor, seleccione un mod.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), "Por favor, seleccione un mod.");
                 await messageBox.ShowWindowDialogAsync(this);
                 return;
             }
@@ -237,7 +237,7 @@ namespace PackwizModpackManager.Views
             // Ejecutar el comando de Packwiz para refrescar los hashes
             await ExecutePackwizCommand("refresh");
 
-            var messageBox = MessageBoxManager.GetMessageBoxStandard("Éxito", "Cambios guardados exitosamente.");
+            var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), Localizer.Get("ChangesSaved"));
             await messageBox.ShowWindowDialogAsync(this);
         }
 
@@ -266,7 +266,7 @@ namespace PackwizModpackManager.Views
         {
             if (string.IsNullOrEmpty(selectedDirectory))
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Advertencia", "Por favor, selecciona un directorio.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Warning"), "Por favor, selecciona un directorio.");
                 await messageBox.ShowWindowDialogAsync(this);
                 return;
             }
@@ -276,13 +276,13 @@ namespace PackwizModpackManager.Views
                 await Task.Run(() => DirectoryCopy(projectPath, selectedDirectory));
 
                 // Mostrar mensaje de éxito
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Éxito", "Modpack copiado exitosamente.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), "Modpack copiado exitosamente.");
                 await messageBox.ShowWindowDialogAsync(this);
             }
             else
             {
                 // Mostrar mensaje de éxito
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "El directorio de mods no existe.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), "El directorio de mods no existe.");
                 await messageBox.ShowWindowDialogAsync(this);
             }
         }
@@ -324,7 +324,7 @@ namespace PackwizModpackManager.Views
 
             if (string.IsNullOrEmpty(ftpServer) || string.IsNullOrEmpty(ftpUsername) || string.IsNullOrEmpty(ftpPassword))
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Advertencia", "Por favor, completa todos los campos de FTP.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Warning"), Localizer.Get("CompleteAllFieldsFTP"));
                 await messageBox.ShowWindowDialogAsync(this);
                 return;
             }
@@ -343,12 +343,12 @@ namespace PackwizModpackManager.Views
                         await client.UploadFileTaskAsync(new Uri(ftpFilePath), WebRequestMethods.Ftp.UploadFile, file);
                     }
                 }
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Éxito", "Modpack subido exitosamente.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), Localizer.Get("FTPUploadCorrectly"));
                 await messageBox.ShowWindowDialogAsync(this);
             }
             else
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "El directorio de mods no existe.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("FTPModFolderNotExist"));
                 await messageBox.ShowWindowDialogAsync(this);
             }
         }
@@ -369,7 +369,7 @@ namespace PackwizModpackManager.Views
             }
             else
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Advertencia", "Por favor, selecciona un tipo de exportación.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Warning"), Localizer.Get("SelectModpackExportType"));
                 await messageBox.ShowWindowDialogAsync(this);
             }
         }
@@ -385,7 +385,7 @@ namespace PackwizModpackManager.Views
                 var updatedTomlContent = PackToml.ToToml();
                 File.WriteAllText(packTomlPath, updatedTomlContent);
 
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Éxito", "Cambios guardados exitosamente.");
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), Localizer.Get("ChangesSaved"));
                 await messageBox.ShowWindowDialogAsync(this);
             }
 
@@ -447,8 +447,8 @@ namespace PackwizModpackManager.Views
                         .GetMessageBoxCustom(
                             new MsBox.Avalonia.Dto.MessageBoxCustomParams
                             {
-                                ContentTitle = "Éxito",
-                                ContentMessage = "Operación completada exitosamente:\n" + output,
+                                ContentTitle = Localizer.Get("Success"),
+                                ContentMessage = Localizer.Get("OperationCompleted") + "\n" + output,
                                 ButtonDefinitions = new List<ButtonDefinition>
                                 {
                                     new ButtonDefinition { Name = "Ok", }
@@ -458,7 +458,7 @@ namespace PackwizModpackManager.Views
                                 SizeToContent = SizeToContent.WidthAndHeight,
                                 MinHeight = 200,
                                 MinWidth = 400,
-                                MaxHeight = 700,  // Limita el tamaño del diálogo
+                                MaxHeight = 700,
                                 MaxWidth = 800
                             });
 
@@ -466,14 +466,14 @@ namespace PackwizModpackManager.Views
                     }
                     else
                     {
-                        var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Error en la operación:\n" + error, MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Warning);
+                        var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("OperationError") + "\n" + error, MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Warning);
                         await messageBox.ShowWindowDialogAsync(this);
                     }
                 }
             }
             catch (Exception ex)
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard("Error", "Ocurrió un error:\n" + ex.Message, MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("OperationError") + "\n" + ex.Message, MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 await Clipboard.SetTextAsync(ex.Message);
                 await messageBox.ShowWindowDialogAsync(this);
             }
