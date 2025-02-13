@@ -324,7 +324,7 @@ namespace PackwizModpackManager.Views
 
             if (string.IsNullOrEmpty(ftpServer) || string.IsNullOrEmpty(ftpUsername) || string.IsNullOrEmpty(ftpPassword))
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Warning"), Localizer.Get("CompleteAllFieldsFTP"));
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Warning"), Localizer.Get("CompleteAllFieldsFTP"), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Warning);
                 await messageBox.ShowWindowDialogAsync(this);
                 return;
             }
@@ -343,12 +343,12 @@ namespace PackwizModpackManager.Views
                         await client.UploadFileTaskAsync(new Uri(ftpFilePath), WebRequestMethods.Ftp.UploadFile, file);
                     }
                 }
-                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), Localizer.Get("FTPUploadCorrectly"));
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Success"), Localizer.Get("FTPUploadCorrectly"), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Success);
                 await messageBox.ShowWindowDialogAsync(this);
             }
             else
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("ModFolderNotExist"));
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Error"), Localizer.Get("ModFolderNotExist"), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Error);
                 await messageBox.ShowWindowDialogAsync(this);
             }
         }
@@ -369,7 +369,7 @@ namespace PackwizModpackManager.Views
             }
             else
             {
-                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Warning"), Localizer.Get("SelectModpackExportType"));
+                var messageBox = MessageBoxManager.GetMessageBoxStandard(Localizer.Get("Warning"), Localizer.Get("SelectModpackExportType"), MsBox.Avalonia.Enums.ButtonEnum.Ok, MsBox.Avalonia.Enums.Icon.Warning);
                 await messageBox.ShowWindowDialogAsync(this);
             }
         }
